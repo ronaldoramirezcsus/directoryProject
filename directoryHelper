@@ -1,0 +1,80 @@
+import java.io.FileNotFoundException;
+import java.util.*;
+/**
+ * This class interprets the choices of the menu and runs accordingly
+ *
+ * @author Ronaldo Ramirez
+ * @version November 21, 2020
+ */
+public class DirectoryHelper extends DirectoryMain1{
+   /**
+   * This method interprets the choices
+   *
+   * @param phoneDirectory Directory which we want to manipulate
+   * @throws FileNotFoundException When file is not found
+   */
+   public static void interpretChoice(Directory phoneDirectory)throws FileNotFoundException{
+      Scanner kb = new Scanner(System.in);
+      String choice;
+      do{
+         printMenu();
+         choice = kb.nextLine();
+         if(choice.equalsIgnoreCase("d")){
+            System.out.println();
+            phoneDirectory.displayDirectory();
+            System.out.println();
+         }
+         if(choice.equalsIgnoreCase("a")){
+            System.out.println("Please Enter your Friend's First and Last Name");
+            String name = kb.nextLine();
+            System.out.println("Please Enter your Friend's Phone Number in xxx-xxx-xxxx format");
+            String number = kb.nextLine();
+            phoneDirectory.add(name,number);
+            System.out.println();
+         
+         }
+         if(choice.equalsIgnoreCase("r")){
+            System.out.println("Please Enter your Friend's First and Last Name");
+            String name = kb.nextLine();
+            phoneDirectory.delete(name);
+            System.out.println();
+         }
+         if(choice.equalsIgnoreCase("s")){
+            System.out.println("Please Enter your Friend's First and Last Name");
+            String name = kb.nextLine();
+            System.out.println(phoneDirectory.getPhoneNumber(name));
+            System.out.println();
+         }
+         if(choice.equalsIgnoreCase("c")){
+            System.out.println("Please Enter your Friend's First and Last Name");
+            String name = kb.nextLine();
+            System.out.println("Please Enter your Friend's Phone Number in xxx-xxx-xxxx format");
+            String number = kb.nextLine();
+            phoneDirectory.change(name,number);
+            System.out.println();
+         }
+         if(choice.equalsIgnoreCase("m")){
+            phoneDirectory.merge(phoneDirectory);
+            System.out.println();
+         }
+      }while(!choice.equalsIgnoreCase("q"));
+      System.out.println("Good Bye!");
+   }
+   /**
+   * This method prints the menu   
+   *
+   */
+   public static void printMenu(){
+      System.out.println(" Phone Directory Menu Options");
+      System.out.println();
+      System.out.println(" Enter A to Add a Friend");
+      System.out.println(" Enter R to Remove a Friend");
+      System.out.println(" Enter D to Display all Friend");
+      System.out.println(" Enter S to Search for a Friend");
+      System.out.println(" Enter C to Change a Friends Information");
+      System.out.println(" Enter M to Merge Directories");
+      System.out.println(" Enter Q to Quit");
+      System.out.println();
+      System.out.print("Please enter your choice ");
+   }
+}
