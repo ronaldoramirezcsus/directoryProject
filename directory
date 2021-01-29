@@ -1,0 +1,110 @@
+import java.util.*;
+import java.io.*;
+/**
+ * This class represents a Phone directory
+ *
+ * @author Ronaldo Ramirez
+ * @version 12 21, 2020
+ */
+public class Directory {
+   private Map<String,String> map = new HashMap<String,String>();
+   /**
+    * This is the constructor which adds the name and numbers from a file to a map
+    *
+    * @param names File name
+    * @throws FileNotFoundException When file is not found
+    */
+   public Directory(String names) throws FileNotFoundException{
+      File f = new File(names);
+      Scanner text = new Scanner(f);
+      while(text.hasNextLine()){ //reads file line by line
+         String line = text.nextLine();//take the next line
+         String token[] = line.split(":");//split the line in 2 when you see a semicolon
+         String name = token[0];//set the name to index 0
+         String number = token[1];//set the number to index 1
+         map.put(name,number);//put name and number to the map
+      }
+   }
+   /**
+    * This method returns the value of the given key if its found
+    *
+    * @param name Name of person or key
+    * @return map.get(name) Value of the key
+    */
+   public String getPhoneNumber(String name){
+      if(map.containsKey(name)){
+         return "Found " + name + " Number:  " + map.get(name);
+      }
+      else{
+         return name + " not found in directory";
+      }
+   } 
+   /**
+    * This method deletes the given key from the map
+    *
+    * @param name Name of person or key
+    */  
+   public void delete(String name){
+      map.remove(name);
+      System.out.println(name + " Removed");
+   }
+   /**
+    * This method adds the given key and value to the map
+    *
+    * @param name Name of person or key you want to add
+    * @param number Phone number or value you want to add
+    */
+   public void add(String name, String number){
+      map.put(name,number);
+      System.out.println("Adding   " + name + " " + number);
+   }
+   /**
+    * This method returns the value of the given key if its found
+    *
+    * @param name Name of person or key you want to change
+    * @param number Phone number or value you want to change 
+    */
+   public void change(String name, String number){
+      map.remove(name);
+      map.put(name,number);
+      System.out.println("Changing " + name + " " + number);
+   }
+   /**
+    * This displays the directory in a special format
+    */
+   public void displayDirectory(){
+      for(String names : map.keySet()){
+         String num = map.get(names);
+         System.out.printf("%20s  %13s",names,num);
+         System.out.println();
+      }
+   }
+   /**
+    * This method merges 2 files and puts them in the same map
+    *
+    * @param phoneDirectory Directory to which you want to add the other file
+    * @throws FileNotFoundException When file is not found 
+    */
+   public void merge(Directory phoneDirectory)throws FileNotFoundException{
+      System.out.println("Displaying Dir");
+      System.out.println();
+      Scanner text = new Scanner(new File("update.txt"));
+      Scanner text2 = new Scanner(new File("update.txt"));
+      while(text.hasNextLine()){ //reads file line by line
+         String line = text.nextLine();//take the next line
+         String token[] = line.split(":");//split the line in 2 when you see a semicolon
+         String name = token[0];//set the name to index 0
+         String number = token[1];//set the number to index 1
+         System.out.println(name + " " +  number);
+         map.put(name,number);//put name and number to the map
+      }
+       while(text2.hasNextLine()){ //reads file line by line
+         String line = text2.nextLine();//take the next line
+         String token[] = line.split(":");//split the line in 2 when you see a semicolon
+         String name = token[0];//set the name to index 0
+         String number = token[1];//set the number to index 1
+         System.out.println("Adding  " + name + " " +  number);
+      }
+      
+   }
+}
